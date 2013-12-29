@@ -88,6 +88,8 @@ def start(in_fname, out_fname):
   for i, (_, c, t) in enumerate(colors):
     y = offset + (i+1)*ROW_HEIGHT
     draw.text((x + 10, y), t, fill=c)
+  draw.text((x + 10, y + ROW_HEIGHT), "(T) - tour", fill=(0,0,0))
+  draw.text((x + 10, y + ROW_HEIGHT*2), "(mT) - mini tour", fill=(0,0,0))
 
   im.save(out_fname, "PNG")
 
