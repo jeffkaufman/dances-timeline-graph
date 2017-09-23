@@ -3,7 +3,7 @@ import os
 import csv
 import time
 import datetime
-import Image, ImageDraw
+from PIL import Image, ImageDraw
 
 WIDTH=550
 MARGIN=5
@@ -71,7 +71,11 @@ def start(in_fname, out_fname, hist_fname, tour_hist_fname):
     for i, row in enumerate(csv.reader(inf)):
       if i == 0:
          continue
-      date_confirmed, dance_name, date_played, how_booked = row
+      try:
+        date_confirmed, dance_name, date_played, how_booked = row
+      except Exception:
+        print row
+        raise
       confirmed_s, played_s = to_epoch(date_confirmed), to_epoch(date_played)
       data.append((date_confirmed, confirmed_s,
                    date_played, played_s,
@@ -93,7 +97,7 @@ def start(in_fname, out_fname, hist_fname, tour_hist_fname):
   draw = ImageDraw.Draw(im)
 
   # dates along top
-  for d in ["2010", "2011", "2012", "2013", "2014", "2015"]:
+  for d in ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]:
     x = to_image_coord(to_epoch("%s-01-01" % d), min_s, max_s)
     y = 5
     draw.text((x, y), "| %s" % d, fill=(0,0,0))
@@ -147,7 +151,7 @@ def start(in_fname, out_fname, hist_fname, tour_hist_fname):
   draw = ImageDraw.Draw(im)
 
   # dates along top
-  for d in ["2010", "2011", "2012", "2013", "2014", "2015"]:
+  for d in ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]:
     x = to_image_coord(to_epoch("%s-01-01" % d), min_s, max_s)
     y = 5
     draw.text((x, y), "| %s" % d, fill=(0,0,0))
@@ -216,7 +220,7 @@ def start(in_fname, out_fname, hist_fname, tour_hist_fname):
   draw = ImageDraw.Draw(im)
 
   # dates along top
-  for d in ["2010", "2011", "2012", "2013", "2014", "2015"]:
+  for d in ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]:
     x = to_image_coord(to_epoch("%s-01-01" % d), min_s, max_s)
     y = 5
     draw.text((x, y), "| %s" % d, fill=(0,0,0))
